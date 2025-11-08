@@ -6,20 +6,59 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum WorkOrderPriority: String, CaseIterable {
-    case high = "High"
-    case medium = "Medium"
-    case low = "Low"
+    case critical = "CRITICAL"
+    case high = "HIGH"
+    case medium = "MEDIUM"
+    case low = "LOW"
+    
+    var displayName: String {
+        switch self {
+        case .critical:
+            return "🚨 CRITICAL"
+        case .high:
+            return "HIGH"
+        case .medium:
+            return "MEDIUM"
+        case .low:
+            return "LOW"
+        }
+    }
     
     var color: Color {
         switch self {
+        case .critical:
+            return Color(red: 1.0, green: 0.2, blue: 0.2) // Bright Red
         case .high:
-            return Color(red: 1.0, green: 0.3, blue: 0.3) // Red
+            return Color(red: 1.0, green: 0.5, blue: 0.0) // Orange
         case .medium:
             return Color(red: 1.0, green: 0.84, blue: 0.0) // Yellow/Amber
         case .low:
             return Color(red: 0.2, green: 0.8, blue: 0.4) // Green
+        }
+    }
+    
+    var responseTime: String {
+        switch self {
+        case .critical:
+            return "0-15 min"
+        case .high:
+            return "Under 1 hour"
+        case .medium:
+            return "2-8 hours"
+        case .low:
+            return "When available"
+        }
+    }
+    
+    var order: Int {
+        switch self {
+        case .critical: return 0
+        case .high: return 1
+        case .medium: return 2
+        case .low: return 3
         }
     }
 }
@@ -75,45 +114,72 @@ struct WorkOrder: Identifiable, Hashable {
 extension WorkOrder {
     static let sampleData: [WorkOrder] = [
         WorkOrder(
-            title: "HVAC System Repair",
-            description: "Replace compressor unit in Building A",
-            priority: .high,
+            title: "Power Outage in Rack 12",
+            description: "Complete power failure affecting multiple servers. Immediate attention required.",
+            priority: .critical,
             status: .inProgress,
             assignedTechnician: "Michael Bernando",
-            dueDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()),
-            timeSpent: 3600,
-            location: "Building A - Floor 3",
-            equipment: "HVAC Unit #12"
+            dueDate: Date(),
+            timeSpent: 600,
+            location: "Data Center - Rack 12",
+            equipment: "PDU Unit #12"
         ),
         WorkOrder(
-            title: "Electrical Panel Inspection",
-            description: "Routine safety inspection of main panel",
+            title: "Cooling System Failure",
+            description: "Temperature spike detected. Risk of hardware damage if not addressed immediately.",
+            priority: .critical,
+            status: .pending,
+            assignedTechnician: "Michael Bernando",
+            dueDate: Date(),
+            location: "Data Center - Cooling Zone A",
+            equipment: "CRAC Unit #5"
+        ),
+        WorkOrder(
+            title: "Network Backbone Failure",
+            description: "Core router failure affecting multiple customers. Service degradation reported.",
+            priority: .high,
+            status: .pending,
+            assignedTechnician: "Michael Bernando",
+            dueDate: Calendar.current.date(byAdding: .hour, value: 1, to: Date()),
+            location: "Network Room - Main",
+            equipment: "Core Router #1"
+        ),
+        WorkOrder(
+            title: "Hardware Refresh - Server Rack 8",
+            description: "Planned upgrade of servers in rack 8. Schedule during maintenance window.",
             priority: .medium,
             status: .pending,
             assignedTechnician: "Michael Bernando",
-            dueDate: Calendar.current.date(byAdding: .day, value: 3, to: Date()),
-            location: "Building B - Basement",
-            equipment: "Main Panel #5"
+            dueDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()),
+            location: "Data Center - Rack 8",
+            equipment: "Server Array #8"
         ),
         WorkOrder(
-            title: "Plumbing Leak Fix",
-            description: "Fix leak in restroom on second floor",
-            priority: .high,
+            title: "Preventive Maintenance - Battery Testing",
+            description: "Routine UPS battery testing and replacement if needed.",
+            priority: .medium,
             status: .pending,
             assignedTechnician: "Michael Bernando",
-            dueDate: Calendar.current.date(byAdding: .hour, value: 4, to: Date()),
-            location: "Building A - Floor 2",
-            equipment: "Sink Unit #8"
+            dueDate: Calendar.current.date(byAdding: .day, value: 2, to: Date()),
+            location: "UPS Room - Main",
+            equipment: "UPS System #3"
         ),
         WorkOrder(
-            title: "Light Fixture Replacement",
-            description: "Replace LED fixtures in hallway",
+            title: "Rack Cleaning and Organization",
+            description: "General cleaning and cable management in rack 15.",
+            priority: .low,
+            status: .pending,
+            assignedTechnician: "Michael Bernando",
+            location: "Data Center - Rack 15"
+        ),
+        WorkOrder(
+            title: "Documentation Update",
+            description: "Update network diagrams and equipment inventory.",
             priority: .low,
             status: .completed,
             assignedTechnician: "Michael Bernando",
             timeSpent: 1800,
-            location: "Building C - Floor 1",
-            equipment: "LED Fixture Set #3"
+            location: "Office - Documentation"
         )
     ]
 }

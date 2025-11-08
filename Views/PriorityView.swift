@@ -10,6 +10,11 @@ import SwiftUI
 struct PriorityView: View {
     @State private var workOrders = WorkOrder.sampleData
     
+    var criticalPriorityOrders: [WorkOrder] {
+        workOrders.filter { $0.priority == .critical && $0.status != .completed }
+            .sorted { $0.dueDate ?? Date.distantFuture < $1.dueDate ?? Date.distantFuture }
+    }
+    
     var highPriorityOrders: [WorkOrder] {
         workOrders.filter { $0.priority == .high && $0.status != .completed }
             .sorted { $0.dueDate ?? Date.distantFuture < $1.dueDate ?? Date.distantFuture }
@@ -55,14 +60,14 @@ struct PriorityView: View {
                         .padding(.bottom, 20)
                         
                         // Top Priority Section
-                        if !highPriorityOrders.isEmpty {
+                        if !criticalPriorityOrders.isEmpty {
                             VStack(alignment: .leading, spacing: 16) {
                                 Text("TOP PRIORITY")
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundColor(AppTheme.textPrimary)
                                 
                                 HStack(spacing: 16) {
-                                    ForEach(Array(highPriorityOrders.prefix(3).enumerated()), id: \.element.id) { index, order in
+                                    ForEach(Array(criticalPriorityOrders.prefix(3).enumerated()), id: \.element.id) { index, order in
                                         PriorityCard(
                                             workOrder: order,
                                             rank: index + 1,
@@ -79,6 +84,15 @@ struct PriorityView: View {
                             Text("PRIORITY QUEUE")
                                 .font(.system(size: 16, weight: .bold))
                                 .foregroundColor(AppTheme.textPrimary)
+                            
+                            // Critical Priority List
+                            if !criticalPriorityOrders.isEmpty {
+                                PrioritySection(
+                                    title: "🚨 CRITICAL PRIORITY",
+                                    orders: criticalPriorityOrders,
+                                    color: WorkOrderPriority.critical.color
+                                )
+                            }
                             
                             // High Priority List
                             if !highPriorityOrders.isEmpty {
@@ -162,7 +176,7 @@ struct PriorityCard: View {
                 
                 Image(systemName: "wrench.and.screwdriver.fill")
                     .font(.system(size: 24))
-                    .foregroundColor(WorkOrderPriority.high.color)
+                    .foregroundColor(workOrder.priority.color)
             }
             
             Text(workOrder.title)

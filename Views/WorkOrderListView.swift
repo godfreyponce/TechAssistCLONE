@@ -175,7 +175,7 @@ struct WorkOrderCategoryCard: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(priority.rawValue.uppercased())
+                    Text(priority.displayName)
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(AppTheme.textPrimary)
                     

@@ -135,7 +135,7 @@ struct WorkOrderDetailView: View {
                                 .font(.system(size: 16, weight: .bold))
                                 .foregroundColor(AppTheme.textPrimary)
                             
-                            DetailRow(label: "Priority", value: workOrder.priority.rawValue, color: workOrder.priority.color)
+                            DetailRow(label: "Priority", value: workOrder.priority.displayName, color: workOrder.priority.color)
                             DetailRow(label: "Status", value: workOrder.status.rawValue, color: AppTheme.accentPrimary)
                             DetailRow(label: "Equipment", value: workOrder.equipment ?? "N/A", color: AppTheme.textSecondary)
                             
