@@ -201,7 +201,8 @@ extension TroubleshootingArticle {
         - Always verify compatibility with server model
         """,
         tags: ["PSU", "Power Supply", "Hardware", "Data Center", "Server", "Electrical", "Failure"],
-        lastUpdated: Date()
+        lastUpdated: Date(),
+        //qrCodeID: "PSU"
     )
     
     static let coolingSystemTroubleshooting = TroubleshootingArticle(
@@ -387,7 +388,8 @@ extension TroubleshootingArticle {
         - Maintain spare parts inventory
         """,
         tags: ["CRAC", "Cooling", "HVAC", "Temperature", "Data Center", "Infrastructure", "Climate Control"],
-        lastUpdated: Date()
+        lastUpdated: Date(),
+        //qrCodeID: "CRAC"
     )
     
     static let networkInfrastructureTroubleshooting = TroubleshootingArticle(
@@ -586,7 +588,8 @@ extension TroubleshootingArticle {
         - Implement network access control (NAC)
         """,
         tags: ["Network", "Switch", "Router", "Ethernet", "VLAN", "Connectivity", "Infrastructure"],
-        lastUpdated: Date()
+        lastUpdated: Date(),
+        // qrCodeID: "NETWORK"
     )
     
     static let serverHardwareTroubleshooting = TroubleshootingArticle(
@@ -818,7 +821,8 @@ extension TroubleshootingArticle {
         - Backplanes and cables
         """,
         tags: ["Server", "Hardware", "CPU", "RAM", "Disk", "PSU", "Data Center"],
-        lastUpdated: Date()
+        lastUpdated: Date(),
+        // qrCodeID: "SERVER"
     )
     
     static let upsPowerTroubleshooting = TroubleshootingArticle(
@@ -1056,7 +1060,8 @@ extension TroubleshootingArticle {
         - Follow manufacturer safety guidelines
         """,
         tags: ["UPS", "Power Distribution", "PDU", "Battery", "Electrical", "Data Center", "Backup Power"],
-        lastUpdated: Date()
+        lastUpdated: Date(),
+        //qrCodeID: "UPS"
     )
 }
 
