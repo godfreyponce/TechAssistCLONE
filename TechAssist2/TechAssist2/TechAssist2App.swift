@@ -7,23 +7,27 @@
 
 import SwiftUI
 import FirebaseCore
+import Auth0
 
 @main
 struct TechAssist2App: App {
     @StateObject private var authViewModel = AuthenticationViewModel()
     
     init() {
-        // Initialize Firebase
         FirebaseApp.configure()
-        
-        // Initialize FirebaseService
         FirebaseService.shared.initialize()
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(authViewModel)
+            Group {
+                if authViewModel.isAuthenticated {
+                    ContentView()
+                        .environmentObject(authViewModel)
+                } else {
+                    LoginView(viewModel: authViewModel)
+                }
+            }
         }
     }
 }

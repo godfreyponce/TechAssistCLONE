@@ -57,6 +57,25 @@ struct ProfileView: View {
                         }
                         .padding(.top, 60)
                         
+                        // Logout Button
+                        Button(action: {
+                            authViewModel.logout()
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.right.square")
+                                    .font(.system(size: 18))
+                                Text("Sign Out")
+                                    .font(.system(size: 16, weight: .semibold))
+                                Spacer()
+                            }
+                            .foregroundColor(AppTheme.error)
+                            .padding(AppTheme.cardPadding)
+                            .background(AppTheme.backgroundSecondary)
+                            .cornerRadius(AppTheme.cardCornerRadius)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 40)
+                        
                         Spacer()
                     }
                 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		062231CF2EC016090015070C /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 062231CE2EC016090015070C /* Auth0 */; };
+		061EEF352EC068800024BE4C /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 061EEF342EC068800024BE4C /* Auth0 */; };
 		062231D22EC017380015070C /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 062231D12EC017380015070C /* FirebaseCore */; };
 		062231D42EC017380015070C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 062231D32EC017380015070C /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
@@ -71,8 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				061EEF352EC068800024BE4C /* Auth0 in Frameworks */,
 				062231D22EC017380015070C /* FirebaseCore in Frameworks */,
-				062231CF2EC016090015070C /* Auth0 in Frameworks */,
 				062231D42EC017380015070C /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,9 +134,9 @@
 			);
 			name = TechAssist2;
 			packageProductDependencies = (
-				062231CE2EC016090015070C /* Auth0 */,
 				062231D12EC017380015070C /* FirebaseCore */,
 				062231D32EC017380015070C /* FirebaseFirestore */,
+				061EEF342EC068800024BE4C /* Auth0 */,
 			);
 			productName = TechAssist2;
 			productReference = 062231072EC010EA0015070C /* TechAssist2.app */;
@@ -221,8 +221,8 @@
 			mainGroup = 062230FE2EC010EA0015070C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				062231CD2EC016090015070C /* XCRemoteSwiftPackageReference "Auth0.swift" */,
 				062231D02EC017380015070C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				061EEF332EC068800024BE4C /* XCRemoteSwiftPackageReference "Auth0.swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 062231082EC010EA0015070C /* Products */;
@@ -605,7 +605,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		062231CD2EC016090015070C /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+		061EEF332EC068800024BE4C /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift.git";
 			requirement = {
@@ -624,9 +624,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		062231CE2EC016090015070C /* Auth0 */ = {
+		061EEF342EC068800024BE4C /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 062231CD2EC016090015070C /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			package = 061EEF332EC068800024BE4C /* XCRemoteSwiftPackageReference "Auth0.swift" */;
 			productName = Auth0;
 		};
 		062231D12EC017380015070C /* FirebaseCore */ = {

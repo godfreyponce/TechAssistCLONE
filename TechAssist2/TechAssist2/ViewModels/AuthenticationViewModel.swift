@@ -2,7 +2,7 @@
 //  AuthenticationViewModel.swift
 //  TechAssist2
 //
-//  Simple Authentication View Model (No Auth0)
+//  Authentication View Model
 //
 
 import Foundation
@@ -10,26 +10,48 @@ import Combine
 import SwiftUI
 
 class AuthenticationViewModel: ObservableObject {
-    @Published var isAuthenticated = true  // Always authenticated for now
+    @Published var isAuthenticated = false
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var userEmail: String?
     @Published var userName: String?
     
+    private let authService = AuthService()
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
-        // Set default user info
-        userName = "MICHAEL BERNANDO"
-        userEmail = "michael.bernando@nmc2.com"
-        isAuthenticated = true
+        // Observe authentication state
+        authService.$isAuthenticated
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isAuthenticated, on: self)
+            .store(in: &cancellables)
+        
+        authService.$userEmail
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.userEmail, on: self)
+            .store(in: &cancellables)
+        
+        authService.$userName
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.userName, on: self)
+            .store(in: &cancellables)
+        
+        authService.$isLoading
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isLoading, on: self)
+            .store(in: &cancellables)
+        
+        authService.$errorMessage
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.errorMessage, on: self)
+            .store(in: &cancellables)
     }
     
     func login() {
-        // No-op - authentication removed
-        isAuthenticated = true
+        authService.login()
     }
     
     func logout() {
-        // No-op - authentication removed
-        isAuthenticated = true
+        authService.logout()
     }
 }
