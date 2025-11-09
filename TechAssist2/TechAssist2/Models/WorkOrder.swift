@@ -1,6 +1,6 @@
 //
 //  WorkOrder.swift
-//  WorkOrderDashboard
+//  TechAssist2
 //
 //  Work Order Data Model
 //
@@ -347,4 +347,3 @@ extension WorkOrder {
         )
     ]
 }
-

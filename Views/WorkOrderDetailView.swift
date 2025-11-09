@@ -10,9 +10,6 @@ import CoreImage.CIFilterBuiltins
 
 struct WorkOrderDetailView: View {
     let workOrder: WorkOrder
-    @State private var timerActive = true
-    @State private var elapsedTime: TimeInterval = 0
-    @State private var timer: Timer?
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -53,9 +50,6 @@ struct WorkOrderDetailView: View {
                         // Priority & Urgency Section
                         priorityUrgencySection
                         
-                        // Timer Display
-                        timerSection
-                        
                         // Basic Task Info
                         basicTaskInfoSection
                         
@@ -77,12 +71,6 @@ struct WorkOrderDetailView: View {
             }
         }
         .navigationBarHidden(true)
-        .onAppear {
-            startTimer()
-        }
-        .onDisappear {
-            stopTimer()
-        }
     }
     
     // MARK: - Priority & Urgency Section
@@ -90,7 +78,7 @@ struct WorkOrderDetailView: View {
         VStack(spacing: 12) {
             HStack {
                 Text(workOrder.priority.displayName)
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: 18, weight: .bold))
                     .foregroundColor(workOrder.priority.color)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
@@ -99,14 +87,35 @@ struct WorkOrderDetailView: View {
                 
                 Spacer()
                 
-                if let slaCountdown = workOrder.slaCountdown() {
-                    Text(slaCountdown)
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(workOrder.priority == .critical ? Color.red : AppTheme.textPrimary)
-                } else if let dueDisplay = workOrder.dueDateDisplay() {
+                // Status Badge
+                Text(workOrder.status.rawValue.uppercased())
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundColor(statusColor(for: workOrder.status))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(statusColor(for: workOrder.status).opacity(0.2))
+                    .cornerRadius(6)
+            }
+            
+            if let dueDisplay = workOrder.dueDateDisplay() {
+                HStack {
+                    Image(systemName: "calendar")
+                        .font(.system(size: 14))
+                        .foregroundColor(AppTheme.textSecondary)
                     Text(dueDisplay)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(AppTheme.textPrimary)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(AppTheme.textSecondary)
+                }
+            }
+            
+            if let timeEstimate = workOrder.timeEstimate {
+                HStack {
+                    Image(systemName: "clock")
+                        .font(.system(size: 14))
+                        .foregroundColor(AppTheme.textSecondary)
+                    Text("Estimated Time: \(timeEstimate)")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(AppTheme.textSecondary)
                 }
             }
         }
@@ -115,53 +124,16 @@ struct WorkOrderDetailView: View {
         .cornerRadius(AppTheme.cardCornerRadius)
     }
     
-    // MARK: - Timer Section
-    private var timerSection: some View {
-        VStack(spacing: 16) {
-            Text(timeString(from: elapsedTime + workOrder.timeSpent))
-                .font(.system(size: 64, weight: .bold, design: .rounded))
-                .foregroundColor(AppTheme.textPrimary)
-                .monospacedDigit()
-            
-            HStack(spacing: 40) {
-                VStack(spacing: 8) {
-                    Text("EST. TIME")
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(AppTheme.textSecondary)
-                    
-                    Text(workOrder.timeEstimate ?? "N/A")
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(AppTheme.textPrimary)
-                }
-                
-                Button(action: {
-                    timerActive.toggle()
-                    if timerActive {
-                        startTimer()
-                    } else {
-                        stopTimer()
-                    }
-                }) {
-                    Circle()
-                        .fill(AppTheme.accentPrimary)
-                        .frame(width: 70, height: 70)
-                        .overlay(
-                            Image(systemName: timerActive ? "pause.fill" : "play.fill")
-                                .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.white)
-                        )
-                }
-                
-                VStack(spacing: 8) {
-                    Text("STATUS")
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(AppTheme.textSecondary)
-                    
-                    Text(workOrder.status.rawValue)
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundColor(AppTheme.accentPrimary)
-                }
-            }
+    private func statusColor(for status: WorkOrderStatus) -> Color {
+        switch status {
+        case .pending:
+            return AppTheme.warning
+        case .inProgress:
+            return AppTheme.accentPrimary
+        case .completed:
+            return AppTheme.success
+        case .onHold:
+            return AppTheme.textSecondary
         }
     }
     
@@ -318,23 +290,6 @@ struct WorkOrderDetailView: View {
     }
     
     // MARK: - Helper Functions
-    private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            elapsedTime += 1
-        }
-    }
-    
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    private func timeString(from timeInterval: TimeInterval) -> String {
-        let hours = Int(timeInterval) / 3600
-        let minutes = Int(timeInterval) / 60 % 60
-        let seconds = Int(timeInterval) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
 }
 
 // MARK: - QR Code View

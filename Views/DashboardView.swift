@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @State private var workOrders = WorkOrder.sampleData
-    let technicianName = "MICHAEL BERNANDO"
+    let technicianName = "Godfrey Ponce"
     
     var openWorkOrders: Int {
         workOrders.filter { $0.status != .completed }.count

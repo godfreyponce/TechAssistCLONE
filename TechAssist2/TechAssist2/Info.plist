@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- 
+		URL Scheme Configuration for Auth0 Callback
+		This allows Auth0 to redirect back to the app after authentication.
+		The callback URL format is: techassist2://{domain}/ios/{bundleId}/callback
+		See AUTH0_CALLBACK_SETUP.md for Auth0 Dashboard configuration.
+	-->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>techassist2</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>techassist2</string>
+			</array>
+		</dict>
+	</array>
+	<!-- Auth0 Configuration (for reference - also in AuthService.swift) -->
+	<key>Domain</key>
+	<string>dev-frosjzi3e85zszxa.us.auth0.com</string>
+	<key>ClientId</key>
+	<string>JNpxt8bUAJCYFnsaOhr8hv3yGee42fi1</string>
+	<!-- Camera Permission for QR Code Scanning -->
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is required to scan QR codes for work order verification.</string>
+</dict>
+</plist>
