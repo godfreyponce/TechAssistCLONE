@@ -10,15 +10,6 @@ A modern iOS app built with SwiftUI for managing work orders with a priority sys
 - **Priority Queue View**: Visual priority system showing high, medium, and low priority work orders
 - **Dark Theme**: Professional dark UI with NMC^2 brand colors
 
-## Design Inspiration
-
-The UI is inspired by modern fitness tracking apps with:
-- Dark background theme (#1C1C1E equivalent)
-- Clean card-based layouts
-- Prominent metrics display
-- Intuitive navigation patterns
-- Professional color scheme
-
 ## Project Structure
 
 ```
@@ -37,33 +28,6 @@ WorkOrderDashboard/
     └── ProfileView.swift          # User profile
 ```
 
-## Customization
-
-### Brand Colors
-
-To update the app with NMC^2's actual brand colors, edit `Theme/AppTheme.swift`:
-
-```swift
-// Replace these with NMC^2's actual brand colors
-static let accentPrimary = Color(red: 0.0, green: 0.6, blue: 0.8) // Your brand color
-static let accentSecondary = Color(red: 0.0, green: 0.7, blue: 0.9)
-static let accentTertiary = Color(red: 0.2, green: 0.8, blue: 1.0)
-```
-
-## Requirements
-
-- iOS 15.0+
-- Xcode 13.0+
-- Swift 5.5+
-
-## Setup
-
-1. Open the project in Xcode
-2. Update the bundle identifier and signing settings
-3. Customize colors in `AppTheme.swift` with NMC^2 brand colors
-4. Build and run on simulator or device
-
-## Views
 
 ### Dashboard
 - Welcome header with technician name
@@ -92,7 +56,7 @@ static let accentTertiary = Color(red: 0.2, green: 0.8, blue: 1.0)
 
 ## Notes
 
-- Sample data is included for demonstration
+- Local persistence model created for demonstration
 - Timer functionality is implemented in the detail view
 - All views use the dark theme with customizable accent colors
 - Navigation follows iOS Human Interface Guidelines
